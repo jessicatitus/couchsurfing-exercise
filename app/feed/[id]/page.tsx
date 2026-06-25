@@ -2,9 +2,10 @@ import { getPost } from "@/lib/api";
 import { notFound } from "next/navigation";
 import CommentList from "@/components/feed/CommentList";
 
-export default async function PostDetailPage({ params }: { params: { id: string } }) {
-  const post = await getPost(params.id);
-  if (!post) notFound();
+export default async function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const post = await getPost(id);
+    if (!post) return notFound();
 
   return (
     <main className="max-w-2xl mx-auto p-6">

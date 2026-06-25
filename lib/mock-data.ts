@@ -72,13 +72,13 @@ export const mockPosts: Post[] = [
       likes: 31,
       comments: [
         {
-            id: "1",
+            id: "3",
             author: { id: "3", name: "Priya Nair", avatar: "https://i.pravatar.cc/150?u=3" },
             body: "Booking a one-way ticket to Morocco ASAP!",
             createdAt: "2026-06-01T10:35:00Z",
         },
         {
-            id: "1",
+            id: "4",
             author: { id: "3", name: "Priya Nair", avatar: "https://i.pravatar.cc/150?u=3" },
             body: "See you in 13 hours!",
             createdAt: "2026-06-01T10:38:00Z",

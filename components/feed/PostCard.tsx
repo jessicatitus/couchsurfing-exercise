@@ -10,7 +10,9 @@ export default function PostCard({ post }: { post: Post }) {
         <span className="text-sm text-gray-400 ml-auto">{post.location}</span>
       </div>
       <p className="text-gray-700 line-clamp-3">{post.body}</p>
-      <p className="text-sm text-gray-400 mt-2">{post.likes} likes · {post.comments.length} comments</p>
+      <p className="text-sm text-gray-400 mt-2">
+        {post.likes} likes · {post.comments.length} {post.comments.length === 1 ? "comment" : "comments"}
+      </p>
     </Link>
   );
 }
