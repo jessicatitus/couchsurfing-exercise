@@ -3,7 +3,9 @@ import { Comment } from "@/types";
 export default function CommentList({ comments }: { comments: Comment[] }) {
   return (
     <div>
-      <h2>{comments.length} {comments.length === 1 ? "comment" : "comments"}</h2>
+      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+        {comments.length} {comments.length === 1 ? "comment" : "comments"}
+      </h2>
       {comments.map((comment) => (
         <div key={comment.id} className="mb-4">
             <div className="flex items-center gap-3 mb-1">
