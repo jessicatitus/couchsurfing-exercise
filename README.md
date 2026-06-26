@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Couchsurfing Social App — Coding Exercise
+
+A simple social webapp built with Next.js.
+
+## Tech Stack
+
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to the profile page.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Profile page** — displays current user info, stats, and friends list
+- **Friends feed** — lists mock posts from friends with like/unlike interaction
+- **Post detail** — click any post to see full content and comments
+- **Navbar** — active link highlighting, navigates between profile and feed
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  profile/          # Profile page (SSR)
+  feed/             # Friends feed (SSR)
+    [id]/           # Post detail page (SSR)
+components/
+  nav/              # Navbar (client component)
+  profile/          # ProfileCard, FriendList
+  feed/             # PostCard, CommentList, LikeButton (client component)
+lib/
+  api.ts            # Mock API layer with simulated latency and error handling
+  mock-data.ts      # Seed data for users, friends, and posts
+types/
+  index.ts          # TypeScript types for User, Friend, Post, Comment
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data Models
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See `types/index.ts` for full type definitions. Key decisions:
 
-## Deploy on Vercel
+- `Friend` extends `User` fields via `Pick<>` and adds `friendSince`
+- `Post` uses `Pick<User>` for author to avoid over-fetching
+- `Comment` follows the same pattern
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Assumptions & Decisions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **SSR by default** — all pages fetch data as async server components, matching how a real API would work
+- **Mock API abstraction** — `lib/api.ts` mirrors what real API calls would look like, so swapping in a real backend requires only changing that layer
+- **Client component where it makes sense** — `LikeButton` uses `useState` for like/unlike interaction; likes are local state only — in a real app this would persist via an API call
+- **Scope** — kept deliberately focused per the instructions; no persistence, authentication, or external API calls
+
+## If I Had More Time
+
+- Loading states with `Suspense` and skeleton UI
+- Pagination on the feed
+- Ability to add comments
+- Friend profile pages
